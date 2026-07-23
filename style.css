@@ -1,0 +1,1283 @@
+
+/* ===========================
+   RESET & VARIÁVEIS
+=========================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: #FFFFFF;
+    min-height: 100vh;
+    background: #000000;
+    overflow-x: hidden;
+}
+
+/* ===========================
+   FUNDO DECORATIVO
+=========================== */
+.bg-decor {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+.bg-decor .orb-top {
+    position: absolute;
+    top: -5%; left: -5%;
+    width: 450px; height: 450px;
+    background: radial-gradient(circle, rgba(111,99,255,0.12) 0%, transparent 55%);
+    border-radius: 50%;
+}
+.bg-decor .orb-right {
+    position: absolute;
+    top: 40%; right: -8%;
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(244,88,122,0.08) 0%, transparent 55%);
+    border-radius: 50%;
+}
+.bg-decor .gradient-bottom {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 300px;
+    background: linear-gradient(180deg, transparent 0%, rgba(111,99,255,0.06) 50%, rgba(244,88,122,0.08) 80%, rgba(252,237,0,0.04) 100%);
+}
+
+/* ===========================
+   HEADER
+=========================== */
+.header {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 100;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.header .logo {
+    height: 28px;
+    width: auto;
+}
+
+/* ===========================
+   PROGRESS BAR
+=========================== */
+.progress-bar {
+    position: fixed;
+    top: 64px; left: 0;
+    width: 100%; height: 3px;
+    background: rgba(255,255,255,0.05);
+    z-index: 99;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #FCED00, #F4587A, #6F63FF);
+    transition: width 0.6s ease;
+}
+
+/* ===========================
+   LINHA INFERIOR
+=========================== */
+.bottom-line {
+    position: fixed;
+    bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, #FCED00, #F4587A, #6F63FF);
+    z-index: 100;
+}
+
+
+
+/* ===========================
+   LAYOUT — PÁGINA PRINCIPAL
+=========================== */
+
+/* O .page do HTML — funciona como wrapper full-width */
+.page {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* O .page criado pelo JS dentro do #app — recebe o grid */
+#app .page {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 64px;
+    align-items: center;
+    max-width: 1300px;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 100px 64px 80px;
+}
+
+/* ===========================
+   RESPONSIVO
+=========================== */
+@media (max-width: 768px) {
+    #app .page {
+        padding: 100px 24px 60px;
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+}
+
+
+
+
+
+/* ===========================
+   LAYOUT — SINGLE (PERGUNTAS, RESULTADO)
+=========================== */
+.page-single {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    padding: 100px 48px 80px;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.page-resultado {
+    position: relative;
+    z-index: 1;
+    padding: 100px 48px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* ===========================
+   TAG
+=========================== */
+.tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    color: #FFFFFF;
+    padding: 6px 14px;
+    border-radius: 8px;
+    background: rgba(111,99,255,0.12);
+    border: 1px solid rgba(111,99,255,0.35);
+    margin-bottom: 20px;
+}
+.tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #6F63FF;
+    box-shadow: 0 0 8px rgba(111,99,255,0.6);
+}
+
+/* ===========================
+   GLASS CARD
+=========================== */
+.glass-card {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1.5px solid rgba(255,255,255,0.22);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+/* ===========================
+   TIPOGRAFIA
+=========================== */
+h1 {
+    font-size: clamp(36px, 4.5vw, 52px);
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1.1;
+    color: #FFFFFF;
+    margin-bottom: 16px;
+}
+h1 .accent {
+    background: linear-gradient(90deg, #FCED00, #F4587A, #6F63FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.subtitle {
+    font-size: 16px;
+    line-height: 1.85;
+    color: #FFFFFF;
+    max-width: 520px;
+}
+
+/* ===========================
+   BOTÃO PRIMÁRIO (pill preto com borda gradiente)
+=========================== */
+.primary-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 36px;
+    background: #000000;
+    color: #FFFFFF;
+    border: 2px solid transparent;
+    border-radius: 58px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    font-family: inherit;
+    background-image: linear-gradient(#000, #000), linear-gradient(90deg, #FCED00, #F4587A, #6F63FF);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.primary-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(111,99,255,0.3);
+}
+
+/* ===========================
+   HOME — CONTEÚDO ESQUERDO
+=========================== */
+.home-content h1 {
+    margin-bottom: 20px;
+}
+.home-content .description {
+    font-size: 16px;
+    line-height: 1.85;
+    color: #FFFFFF;
+    margin-bottom: 32px;
+}
+
+/* ===========================
+   HOME — EXPANDABLE (O que é audiência)
+=========================== */
+.expandable {
+    margin-bottom: 48px;
+}
+.expandable-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(88, 88, 88, 0.06);
+    border: 1px solid rgba(142, 142, 141, 0.25);
+    border-radius: 12px;
+    padding: 14px 20px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    color: #8a8a8a;
+    font-size: 14px;
+    font-weight: 700;
+    transition: background 0.2s;
+}
+.expandable-toggle:hover {
+    background: rgba(243, 230, 49, 0.1);
+}
+.expandable-toggle i {
+    width: 18px; height: 18px;
+    transition: transform 0.3s;
+}
+.expandable-toggle.open i {
+    transform: rotate(180deg);
+}
+.expandable-content {
+    display: none;
+    padding: 20px;
+    margin-top: 8px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+}
+.expandable-content.show {
+    display: block;
+}
+.expandable-content p {
+    font-size: 14px;
+    line-height: 1.85;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+}
+.expandable-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* ===========================
+   HOME — CARD DIREITO (Como funciona + Features)
+=========================== */
+.home-card {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1.5px solid rgba(255,255,255,0.22);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.home-card h2 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 28px;
+}
+.step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.step-item:last-child {
+    margin-bottom: 0;
+}
+.step-num {
+    font-size: 22px;
+    font-weight: 900;
+    color: #FCED00;
+    line-height: 1;
+    min-width: 32px;
+}
+.step-item h3 {
+    font-size: 14px;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 4px;
+}
+.step-item p {
+    font-size: 13px;
+    line-height: 1.65;
+    color: #FFFFFF;
+}
+.features-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+}
+.feature-item i {
+    width: 16px; height: 16px;
+    color: #6F63FF;
+}
+
+/* ===========================
+   BLOCO A/B — CONTEÚDO ESQUERDO
+=========================== */
+.block-content .progress-text {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 16px;
+}
+.block-content h1 {
+    margin-bottom: 12px;
+}
+.block-content .subtitle {
+    margin-bottom: 24px;
+}
+.block-content .description {
+    font-size: 15px;
+    line-height: 1.85;
+    color: #FFFFFF;
+    margin-bottom: 32px;
+}
+.privacy-note {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 20px;
+}
+.privacy-note i {
+    width: 14px; height: 14px;
+    color: rgba(255,255,255,0.4);
+}
+
+/* ===========================
+   BLOCO A/B — CARD DIREITO (Tópicos)
+=========================== */
+.topics-card {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1.5px solid rgba(255,255,255,0.22);
+    border-radius: 24px;
+    padding: 36px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.topics-card h3 {
+    font-size: 14px;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 24px;
+}
+.topic-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.topic-row:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+.topic-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: rgba(111,99,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.topic-icon i {
+    width: 18px; height: 18px;
+    color: #6F63FF;
+}
+.topic-icon.rosa {
+    background: rgba(244,88,122,0.12);
+}
+.topic-icon.rosa i {
+    color: #F4587A;
+}
+.topic-text strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 4px;
+}
+.topic-text p {
+    font-size: 12px;
+    line-height: 1.65;
+    color: #FFFFFF;
+}
+
+/* ===========================
+   PERGUNTAS — LAYOUT SINGLE
+=========================== */
+.question-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+}
+.question-progress {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.5);
+}
+.question-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #6F63FF;
+    padding: 6px 14px;
+    background: rgba(11, 0, 252, 0.08);
+    border: 1px solid rgba(49, 55, 238, 0.2);
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.question-tag i {
+    width: 14px; height: 14px;
+}
+.question-title {
+    font-size: clamp(22px, 3vw, 28px);
+    font-weight: 900;
+    color: #FFFFFF;
+    line-height: 1.3;
+    margin-bottom: 28px;
+}
+
+/* Para responder — expansível */
+.question-info-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(252,237,0,0.06);
+    border: 1px solid rgba(252,237,0,0.2);
+    border-radius: 12px;
+    padding: 12px 18px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    color: #FCED00;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 28px;
+    transition: background 0.2s;
+}
+.question-info-toggle:hover {
+    background: rgba(252,237,0,0.1);
+}
+.question-info-toggle i {
+    width: 16px; height: 16px;
+    transition: transform 0.3s;
+}
+.question-info-toggle.open i {
+    transform: rotate(180deg);
+}
+.question-info-content {
+    display: none;
+    padding: 20px;
+    margin-top: -20px;
+    margin-bottom: 28px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 0 0 12px 12px;
+}
+.question-info-content.show {
+    display: block;
+}
+.question-info-content p {
+    font-size: 14px;
+    line-height: 1.75;
+    color: #FFFFFF;
+    margin-bottom: 8px;
+}
+.question-info-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Cards SIM / NÃO */
+.answers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+.answer-card {
+    background: rgba(255,255,255,0.04);
+    border: 1.5px solid rgba(255,255,255,0.18);
+    border-radius: 18px;
+    padding: 28px 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    font-family: inherit;
+    color: #FFFFFF;
+}
+.answer-card:hover {
+    border-color: rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.07);
+}
+.answer-card.selected {
+    border-color: #6F63FF;
+    background: rgba(111,99,255,0.1);
+    box-shadow: 0 0 20px rgba(111,99,255,0.15);
+}
+.answer-card strong {
+    display: block;
+    font-size: 16px;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+.answer-card p {
+    font-size: 13px;
+    line-height: 1.65;
+    color: #FFFFFF;
+}
+
+/* ===========================
+   RESULTADO — HEADER
+=========================== */
+.result-header {
+    margin-bottom: 48px;
+}
+.result-header h1 {
+    color: #FCED00;
+}
+.result-header .desc {
+    font-size: 16px;
+    line-height: 1.85;
+    color: #FFFFFF;
+    max-width: 700px;
+}
+
+/* ===========================
+   RESULTADO — SCORES
+=========================== */
+.scores {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 40px;
+}
+.score-card {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1.5px solid rgba(255,255,255,0.22);
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+.score-circle {
+    position: relative;
+    width: 110px; height: 110px;
+    flex-shrink: 0;
+}
+.score-circle svg.ring {
+    width: 110px; height: 110px;
+    transform: rotate(-90deg);
+}
+.score-circle .bg-ring {
+    fill: none;
+    stroke: rgba(255,255,255,0.08);
+    stroke-width: 10;
+}
+.score-circle .fill-ring {
+    fill: none;
+    stroke-width: 10;
+    stroke-linecap: round;
+    stroke-dasharray: 276.5;
+    transition: stroke-dashoffset 1.2s ease;
+}
+.fill-ring-a { stroke: #6F63FF; }
+.fill-ring-b { stroke: #F4587A; }
+.score-value {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    font-weight: 900;
+    color: #FFFFFF;
+}
+.score-value span {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+}
+.score-info h3 {
+    font-size: 15px;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.score-info h3 i {
+    width: 18px; height: 18px;
+    color: #6F63FF;
+}
+.score-card:last-child .score-info h3 i {
+    color: #F4587A;
+}
+.score-info p {
+    font-size: 13px;
+    line-height: 1.65;
+    color: #FFFFFF;
+}
+
+/* ===========================
+   RESULTADO — MATRIZ
+=========================== */
+.matrix-section {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1.5px solid rgba(255,255,255,0.22);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+    margin-bottom: 40px;
+}
+.matrix-section h2 {
+    font-size: 17px;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.matrix-section h2 i {
+    width: 22px; height: 22px;
+    color: #FCED00;
+}
+.matrix-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.axis-y {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.4);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-align: center;
+}
+.matrix-content { flex: 1; }
+.matrix-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+.quadrant {
+    padding: 28px 24px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.03);
+    border: 1.5px solid rgba(255,255,255,0.08);
+    text-align: center;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+.quadrant .q-icon {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+    background: rgba(255,255,255,0.05);
+}
+.quadrant .q-icon i {
+    width: 20px; height: 20px;
+    color: rgba(255,255,255,0.3);
+}
+.quadrant strong {
+    display: block;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.4);
+}
+.quadrant p {
+    font-size: 11px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.3);
+}
+.quadrant.active {
+    border-color: #FCED00;
+    background: rgba(252,237,0,0.06);
+    box-shadow: 0 0 30px rgba(252,237,0,0.08), inset 0 0 20px rgba(252,237,0,0.03);
+}
+.quadrant.active .q-icon {
+    background: rgba(252,237,0,0.15);
+}
+.quadrant.active .q-icon i {
+    color: #FCED00;
+}
+.quadrant.active strong { color: #FCED00; }
+.quadrant.active p { color: #FFFFFF; }
+.stage-label {
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #000000;
+    background: #FCED00;
+    padding: 3px 10px;
+    border-radius: 4px;
+}
+.axis-x {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    padding: 0 8px;
+}
+.axis-x span {
+    font-size: 9px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.35);
+}
+.axis-x strong {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.4);
+}
+
+/* ===========================
+   RESULTADO — O QUE IDENTIFICAMOS (borda roxa)
+=========================== */
+.identified-section {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1.5px solid rgba(111,99,255,0.45);
+    border-radius: 24px;
+    padding: 36px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+    margin-bottom: 40px;
+}
+.identified-section h2 {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #6F63FF;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.identified-section h2 i {
+    width: 20px; height: 20px;
+    color: #6F63FF;
+}
+.identified-section p {
+    font-size: 15px;
+    line-height: 1.85;
+    color: #FFFFFF;
+    margin-bottom: 14px;
+}
+.identified-section p:last-child { margin-bottom: 0; }
+
+/* ===========================
+   RESULTADO — COMO EVOLUIR (borda rosa)
+=========================== */
+.evolve-section {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1.5px solid rgba(244,88,122,0.45);
+    border-radius: 24px;
+    padding: 36px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+    margin-bottom: 40px;
+}
+.evolve-section h2 {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #F4587A;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.evolve-section h2 i {
+    width: 20px; height: 20px;
+    color: #F4587A;
+}
+.evolve-action {
+    font-size: 20px;
+    font-weight: 900;
+    color: #FFFFFF;
+    margin-bottom: 16px;
+}
+.evolve-desc {
+    font-size: 15px;
+    line-height: 1.85;
+    color: #FFFFFF;
+    margin-bottom: 14px;
+}
+.evolve-steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-top: 28px;
+}
+.evolve-step {
+    padding: 24px 20px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 18px;
+    transition: border-color 0.2s;
+}
+.evolve-step:hover {
+    border-color: rgba(255,255,255,0.2);
+}
+.evolve-step-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+.evolve-step-num {
+    font-size: 22px;
+    font-weight: 900;
+    color: #FCED00;
+    line-height: 1;
+}
+.evolve-step-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: rgba(244,88,122,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.evolve-step-icon i {
+    width: 18px; height: 18px;
+    color: #F4587A;
+}
+.evolve-step h4 {
+    font-size: 14px;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+}
+.evolve-step p {
+    font-size: 12px;
+    line-height: 1.75;
+    color: #FFFFFF;
+}
+
+/* ===========================
+   RESULTADO — INSIGHTS ROCK
+=========================== */
+.insights-rock-section {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1.5px solid rgba(255,255,255,0.22);
+    border-radius: 24px;
+    padding: 36px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+    margin-bottom: 40px;
+}
+.insights-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #FCED00;
+    padding: 5px 14px;
+    background: rgba(252,237,0,0.08);
+    border: 1px solid rgba(252,237,0,0.25);
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+.insights-tag i {
+    width: 14px; height: 14px;
+    color: #FCED00;
+}
+.insights-rock-section h3 {
+    font-size: 20px;
+    font-weight: 900;
+    color: #FFFFFF;
+    margin-bottom: 12px;
+}
+.insights-rock-section .insight-text {
+    font-size: 15px;
+    line-height: 1.85;
+    color: #FFFFFF;
+    margin-bottom: 12px;
+}
+.insight-number-box {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 28px 32px;
+    background: rgba(252,237,0,0.05);
+    border: 1.5px solid rgba(252,237,0,0.25);
+    border-radius: 18px;
+    margin: 24px 0;
+}
+.insight-number-box .number {
+    font-size: 42px;
+    font-weight: 900;
+    color: #FCED00;
+    white-space: nowrap;
+    line-height: 1;
+}
+.insight-number-box .number-desc {
+    font-size: 15px;
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 1.5;
+}
+.insight-dado {
+    font-size: 14px;
+    line-height: 1.85;
+    color: #FFFFFF;
+    margin-top: 16px;
+}
+.insight-fonte {
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.35);
+    margin-top: 14px;
+    letter-spacing: 1px;
+}
+
+/* ===========================
+   RESULTADO — CTA FINAL
+=========================== */
+.cta-section {
+    background: linear-gradient(135deg, #6F63FF 0%, #F4587A 100%);
+    border-radius: 24px;
+    padding: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+    box-shadow: 0 8px 40px rgba(111,99,255,0.25);
+}
+.cta-text h3 {
+    font-size: 22px;
+    font-weight: 900;
+    color: #FFFFFF;
+    margin-bottom: 8px;
+}
+.cta-text p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.7;
+}
+.cta-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+.btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 32px;
+    background: #FFFFFF;
+    color: #000000;
+    border: none;
+    border-radius: 58px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+.btn-secondary-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    background: rgba(255,255,255,0.15);
+    color: #FFFFFF;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    border-radius: 58px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s;
+    backdrop-filter: blur(10px);
+}
+.btn-secondary-cta:hover {
+    background: rgba(255,255,255,0.25);
+}
+.btn-secondary-cta i {
+    width: 16px; height: 16px;
+}
+
+/* ===========================
+   RESPONSIVO
+=========================== */
+@media (max-width: 768px) {
+    .page {
+        padding: 100px 24px 60px;
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+    .page-single {
+        padding: 100px 24px 60px;
+    }
+    .page-resultado {
+        padding: 100px 24px 60px;
+    }
+    .scores {
+        grid-template-columns: 1fr;
+    }
+    .matrix-wrapper {
+        flex-direction: column;
+    }
+    .axis-y {
+        writing-mode: horizontal-tb;
+        transform: none;
+    }
+    .evolve-steps {
+        grid-template-columns: 1fr;
+    }
+    .answers-grid {
+        grid-template-columns: 1fr;
+    }
+    .cta-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .features-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+/* Espaçamento entre texto de apoio e botão expandable na home */
+.home-content .subtitle {
+    margin-bottom: 40px;
+}
+/* Destaques coloridos para textos */
+.accent-yellow {
+    color: #FCED00;
+    font-weight: 900;
+}
+.accent-pink {
+    color: #F4587A;
+    font-weight: 900;
+}
+.accent-purple {
+    color: #6F63FF;
+    font-weight: 900;
+}
+
+
+
+/* Corrige botões CTA no PDF */
+.pdf-mode .btn-cta {
+    background: #ffffff !important;
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+    border: 2px solid #000000 !important;
+}
+
+.pdf-mode .btn-secondary-cta {
+    background: rgba(255,255,255,0.3) !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
+
+
+/* ===========================
+   PDF — CONTROLE DE QUEBRA DE PÁGINA
+=========================== */
+
+/* Força quebra ANTES de uma seção */
+.page-break-before {
+    page-break-before: always;
+    break-before: always;
+}
+
+/* Evita quebra NO MEIO de uma seção */
+.no-break {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* PDF mode — mantém visual original */
+.pdf-mode {
+    background: #1E1E1E !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+.pdf-mode * {
+    -webkit-text-fill-color: inherit !important;
+}
+
+
+/* ===========================
+   PDF — FUNDO PRETO TOTAL + SEM BORDAS
+=========================== */
+
+/* Modo PDF — fundo preto em TUDO */
+.pdf-mode {
+    background: #1E1E1E !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+.pdf-mode * {
+    -webkit-text-fill-color: inherit !important;
+}
+
+/* Garante que TODAS as seções tenham fundo preto */
+.pdf-mode section,
+.pdf-mode div,
+.pdf-mode .resultado-card,
+.pdf-mode .evolucao-section,
+.pdf-mode .diagnostico-header,
+.pdf-mode .metricas-section {
+    background-color: #1E1E1E !important;
+    background: #1E1E1E !important;
+}
+
+/* Círculos — cor correta (amarelo) */
+.pdf-mode .circle-fill,
+.pdf-mode .metric-circle,
+.pdf-mode .score-circle {
+    border-color: #FCED00 !important;
+    color: #FCED00 !important;
+    -webkit-text-fill-color: #FCED00 !important;
+}
+
+/* Evita quebra no meio de seções */
+.no-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+}
+
+/* Força quebra antes de uma seção */
+.page-break-before {
+    page-break-before: always !important;
+    break-before: always !important;
+}
+
+
+
+/* ===========================
+   PDF — CONTROLE DE IMPRESSÃO
+=========================== */
+@media print {
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    body {
+        background: #000000 !important;
+    }
+}
+
+.no-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+}
+
+
+
