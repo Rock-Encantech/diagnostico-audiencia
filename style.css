@@ -1279,5 +1279,135 @@ h1 .accent {
     break-inside: avoid !important;
 }
 
+/* ===========================
+   GATE — FORMULÁRIO DE EMAIL
+=========================== */
+.gate-section {
+    margin: 48px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.gate-card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 48px 40px;
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.gate-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #FCED00, #F4587A, #6F63FF);
+}
+
+.gate-icon {
+    margin-bottom: 20px;
+}
+
+.gate-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 12px;
+}
+
+.gate-title .destaque-amarelo {
+    color: #FCED00;
+}
+
+.gate-desc {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.5;
+    margin-bottom: 32px;
+}
+
+.gate-form {
+    width: 100%;
+}
+
+.gate-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.gate-input {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.06);
+    color: #FFFFFF;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.gate-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.gate-input:focus {
+    border-color: #FCED00;
+}
+
+.gate-btn {
+    width: 100%;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #FCED00, #F4587A);
+    color: #000000;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.3s, transform 0.2s;
+    letter-spacing: 0.5px;
+}
+
+.gate-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.gate-privacy {
+    margin-top: 16px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.resultado-locked {
+    display: none;
+}
+
+.resultado-locked.unlocked {
+    display: block;
+}
+
+@media (max-width: 600px) {
+    .gate-card {
+        padding: 32px 20px;
+        margin: 0 16px;
+    }
+}
+
+
 
 
