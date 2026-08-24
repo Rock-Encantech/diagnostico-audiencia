@@ -1465,6 +1465,55 @@ h1 .accent {
     }
 }
 
+/* ===========================
+   PDF / IMPRESSÃO
+=========================== */
+@media print {
+    body, html, #app, .page-resultado {
+        background: #000 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+
+    .bg-decor,
+    .progress-container,
+    .cta-section {
+        display: none !important;
+    }
+
+    @page {
+        margin: 0;
+        size: A4;
+    }
+
+    .identified-section,
+    .scores,
+    .matrix-section {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+
+    .evolve-section {
+        page-break-before: always !important;
+        break-before: page !important;
+    }
+
+    .insights-rock-section {
+        page-break-before: always !important;
+        break-before: page !important;
+    }
+
+    h1, h2, h3, h4, p, li, span, strong {
+        color: #fff !important;
+    }
+
+    .accent, .highlight, .destaque {
+        color: #FCED00 !important;
+    }
+}
+
+
 
 
 
