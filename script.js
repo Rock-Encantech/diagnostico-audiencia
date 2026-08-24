@@ -595,18 +595,22 @@ var quebraPagina2 = '<div style="page-break-before: always; break-before: page;"
 // BAIXAR PDF
 // ==============================
 
+
 function baixarPDF() {
     var elemento = document.getElementById('resultado-content');
     if (!elemento) return;
 
-    // Esconde CTA
-    var ctaSection = elemento.querySelector('.cta-section, .cta-rock, .section-cta');
+    // Esconde CTA e decorações
+    var ctaSection = elemento.querySelector('.cta-section');
     if (ctaSection) ctaSection.style.display = 'none';
+
+    var bgDecor = document.querySelector('.bg-decor');
+    if (bgDecor) bgDecor.style.display = 'none';
 
     window.scrollTo(0, 0);
 
     var opcoes = {
-        margin: 0,
+        margin: [10, 10, 10, 10],
         filename: 'diagnostico-audiencia.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: {
@@ -615,43 +619,43 @@ function baixarPDF() {
             scrollX: 0,
             scrollY: 0,
             backgroundColor: '#000000',
-            ignoreElements: function(el) {
-                return el.classList && el.classList.contains('cta-section');
-            },
+            width: 800,
+            windowWidth: 800,
             onclone: function(clonedDoc) {
-                // Injeta estilo no clone para resetar TUDO
                 var style = clonedDoc.createElement('style');
                 style.textContent = ''
                     + '* { transition: none !important; animation: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }'
-                    + 'body { background: #000000 !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; width: 1200px !important; }'
-                    + '.bg-decor, .header, .progress-bar, .bottom-line { display: none !important; }'
-                    + '#app { display: block !important; width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important; }'
-                    + '.page-resultado, .page { display: block !important; width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 48px !important; background: #000000 !important; position: relative !important; left: 0 !important; top: 0 !important; }'
-                    + '.glass-card, .score-card, .matrix-section, .identified-section, .evolve-section, .insights-rock-section, .home-card, .topics-card, .evolve-step, .quadrant, .insight-number-box { background: rgba(255,255,255,0.06) !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }'
-                    + '.cta-section { display: none !important; }'
-                    + 'section, .evolve-step, .score-card, .insight-number-box, .resultado-card, .evolve-section, .insights-rock-section { page-break-inside: avoid !important; break-inside: avoid !important; }';
+                    + 'body { background: #000000 !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }'
+                    + '.bg-decor, .header, .progress-bar, .bottom-line, .cta-section { display: none !important; }'
+                    + '#app { display: block !important; width: 800px !important; max-width: 800px !important; margin: 0 !important; padding: 0 !important; }'
+                    + '.page-resultado { display: block !important; width: 800px !important; max-width: 800px !important; margin: 0 auto !important; padding: 40px !important; background: #000000 !important; }'
+                    + '.glass-card, .score-card, .matrix-section, .identified-section, .evolve-section, .insights-rock-section, .evolve-step, .quadrant, .insight-number-box { background: rgba(255,255,255,0.06) !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }'
+                    + '.pdf-break { page-break-before: always !important; break-before: page !important; display: block !important; height: 0 !important; margin: 0 !important; padding: 0 !important; }'
+                    + '.result-header, .scores, .matrix-section { page-break-inside: avoid !important; break-inside: avoid !important; }'
+                    + '.identified-section { page-break-inside: avoid !important; break-inside: avoid !important; }'
+                    + '.evolve-section { page-break-inside: avoid !important; break-inside: avoid !important; }'
+                    + '.insights-rock-section { page-break-inside: avoid !important; break-inside: avoid !important; }'
+                    + '.evolve-step { page-break-inside: avoid !important; break-inside: avoid !important; }';
                 clonedDoc.head.appendChild(style);
 
-                // Reseta body do clone
-                var clonedBody = clonedDoc.body;
-                clonedBody.style.background = '#000000';
-                clonedBody.style.margin = '0';
-                clonedBody.style.padding = '0';
-                clonedBody.style.overflow = 'visible';
-                clonedBody.style.width = '1200px';
-
-                // Reseta o elemento resultado
+                // Insere quebras de página no clone
                 var clonedEl = clonedDoc.getElementById('resultado-content');
                 if (clonedEl) {
-                    clonedEl.style.position = 'relative';
-                    clonedEl.style.left = '0';
-                    clonedEl.style.top = '0';
-                    clonedEl.style.margin = '0';
-                    clonedEl.style.padding = '48px';
-                    clonedEl.style.width = '1200px';
-                    clonedEl.style.maxWidth = '1200px';
-                    clonedEl.style.overflow = 'visible';
-                    clonedEl.style.background = '#000000';
+                    // Quebra antes de "O que identificamos"
+                    var identified = clonedEl.querySelector('.identified-section');
+                    if (identified) {
+                        var br1 = clonedDoc.createElement('div');
+                        br1.className = 'pdf-break';
+                        identified.parentNode.insertBefore(br1, identified);
+                    }
+
+                    // Quebra antes de "Insights Rock"
+                    var insights = clonedEl.querySelector('.insights-rock-section');
+                    if (insights) {
+                        var br2 = clonedDoc.createElement('div');
+                        br2.className = 'pdf-break';
+                        insights.parentNode.insertBefore(br2, insights);
+                    }
                 }
             }
         },
@@ -662,14 +666,15 @@ function baixarPDF() {
         },
         pagebreak: {
             mode: ['css', 'legacy'],
+            before: ['.pdf-break'],
             avoid: [
                 '.score-card',
                 '.matrix-section',
                 '.identified-section',
                 '.evolve-section',
                 '.evolve-step',
-                '.insight-number-box',
-                '.insights-rock-section'
+                '.insights-rock-section',
+                '.insight-number-box'
             ]
         }
     };
@@ -680,13 +685,13 @@ function baixarPDF() {
         .save()
         .then(function() {
             if (ctaSection) ctaSection.style.display = '';
+            if (bgDecor) bgDecor.style.display = '';
         })
         .catch(function() {
             if (ctaSection) ctaSection.style.display = '';
+            if (bgDecor) bgDecor.style.display = '';
         });
 }
-
-
 // ==============================
 // INICIAR
 // ==============================
