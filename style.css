@@ -1408,6 +1408,64 @@ h1 .accent {
     }
 }
 
+/* ===========================
+   PDF / IMPRESSÃO
+=========================== */
+@media print {
+    /* Fundo preto em tudo */
+    body, html, #app, .page, .resultado-page {
+        background: #000 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+
+    /* Esconde o que NÃO deve aparecer no PDF */
+    .progress-container,
+    .btn-cta,
+    .btn-pdf,
+    #link-especialista,
+    .insights-rock-section,
+    .cta-rock-section {
+        display: none !important;
+    }
+
+    /* Remove margens do navegador */
+    @page {
+        margin: 0;
+        size: A4;
+    }
+
+    /* Garante que o conteúdo não seja cortado */
+    .resultado-section {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+
+    /* Quebra de página antes de "Como Evoluir" */
+    .evolve-section {
+        page-break-before: always !important;
+        break-before: page !important;
+    }
+
+    /* Quebra de página antes de "Insights" (se existir) */
+    .insights-section {
+        page-break-before: always !important;
+        break-before: page !important;
+    }
+
+    /* Textos brancos visíveis */
+    h1, h2, h3, p, li, span {
+        color: #fff !important;
+    }
+
+    /* Destaques amarelos */
+    .highlight, .destaque {
+        color: #FCED00 !important;
+    }
+}
+
+
 
 
 
