@@ -454,11 +454,9 @@ function renderResultado() {
 
     // Montar identificamos (substituir \n por </p><p>)
     // Quebra de página para o PDF (página 2)
-var quebraPagina2 = '<div style="page-break-before: always; break-before: page;"></div>';
     var identificamosHtml = '<p>' + resultado.identificamos.replace(/\n\n/g, '</p><p>').replace(/\n/g, '</p><p>') + '</p>';
 
     // Montar como (substituir \n por </p><p>)
-    var quebraPagina3 = '<div style="page-break-before: always; break-before: page;"></div>';
     var comoHtml = '<p class="evolve-desc">' + resultado.como.replace(/\n\n/g, '</p><p class="evolve-desc">').replace(/\n/g, '</p><p class="evolve-desc">') + '</p>';
 
     app.innerHTML = ''
