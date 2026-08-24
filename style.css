@@ -1264,16 +1264,10 @@ h1 .accent {
 /* ===========================
    PDF — CONTROLE DE IMPRESSÃO
 =========================== */
-@media print {
-    * {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
-    body {
-        background: #000000 !important;
-    }
-}
 
+/* ===========================
+   PDF — CONTROLE DE IMPRESSÃO
+=========================== */
 .no-break {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
@@ -1409,112 +1403,95 @@ h1 .accent {
 }
 
 /* ===========================
-   PDF / IMPRESSÃO
+   PDF / IMPRESSÃO (ÚNICO BLOCO)
 =========================== */
 @media print {
     /* Fundo preto em tudo */
-    body, html, #app, .page, .resultado-page {
-        background: #000 !important;
+    *, *::before, *::after {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
         color-adjust: exact !important;
     }
 
-    /* Esconde o que NÃO deve aparecer no PDF */
+    body, html, #app, .page, .page-resultado {
+        background: #000000 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Configuração da página */
+    @page {
+        margin: 10mm;
+        size: A4;
+    }
+
+    /* ESCONDE elementos desnecessários no PDF */
     .progress-container,
     .btn-cta,
     .btn-pdf,
+    .result-actions,
     #link-especialista,
-    .insights-rock-section,
-    .cta-rock-section {
+    .cta-rock-section,
+    .cta-section,
+    .gate-section,
+    .bg-decor {
         display: none !important;
     }
 
-    /* Remove margens do navegador */
-    @page {
-        margin: 0;
-        size: A4;
-    }
-
-    /* Garante que o conteúdo não seja cortado */
-    .resultado-section {
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-    }
-
-    /* Quebra de página antes de "Como Evoluir" */
-    .evolve-section {
-        page-break-before: always !important;
-        break-before: page !important;
-    }
-
-    /* Quebra de página antes de "Insights" (se existir) */
-    .insights-section {
-        page-break-before: always !important;
-        break-before: page !important;
-    }
-
-    /* Textos brancos visíveis */
-    h1, h2, h3, p, li, span {
-        color: #fff !important;
-    }
-
-    /* Destaques amarelos */
-    .highlight, .destaque {
-        color: #FCED00 !important;
-    }
-}
-
-/* ===========================
-   PDF / IMPRESSÃO
-=========================== */
-@media print {
-    body, html, #app, .page-resultado {
-        background: #000 !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        color-adjust: exact !important;
-    }
-
-    .bg-decor,
-    .progress-container,
-    .cta-section {
-        display: none !important;
-    }
-
-    @page {
-        margin: 0;
-        size: A4;
-    }
-
-    .identified-section,
+    /* GARANTE que seções importantes APARECEM */
+    .result-header,
     .scores,
-    .matrix-section {
+    .score-card,
+    .matrix-section,
+    .identified-section,
+    .evolve-section,
+    .insights-rock-section {
+        display: block !important;
+        visibility: visible !important;
+    }
+
+    /* Scores lado a lado */
+    .scores {
+        display: flex !important;
+    }
+
+    /* IMPEDE quebra dentro de seções */
+    .result-header,
+    .scores,
+    .score-card,
+    .matrix-section,
+    .evolve-step,
+    .insight-number-box {
         page-break-inside: avoid !important;
         break-inside: avoid !important;
     }
 
+    /* PÁGINA 2 — O que Identificamos */
+    .identified-section {
+        page-break-before: always !important;
+        break-before: page !important;
+    }
+
+    /* PÁGINA 3 — Como Evoluir */
     .evolve-section {
         page-break-before: always !important;
         break-before: page !important;
     }
 
+    /* PÁGINA 4 — Insights */
     .insights-rock-section {
         page-break-before: always !important;
         break-before: page !important;
     }
 
-    h1, h2, h3, h4, p, li, span, strong {
-        color: #fff !important;
+    /* Textos brancos */
+    h1, h2, h3, h4, p, li, span, strong, a {
+        color: #FFFFFF !important;
     }
 
-    .accent, .highlight, .destaque {
+    /* Destaques amarelos */
+    .highlight, .destaque, .destaque-amarelo, .accent {
         color: #FCED00 !important;
     }
 }
-
-
-
-
-
 
