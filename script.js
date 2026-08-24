@@ -578,7 +578,7 @@ var quebraPagina2 = '<div style="page-break-before: always; break-before: page;"
         + '    <p>Transforme conhecimento sobre seus clientes em estratégias de <strong>relacionamento</strong> mais inteligentes.</p>'
         + '  </div>'
         + '  <div class="cta-buttons">'
-        + '    <a href="#" id="link-especialista" class="btn-cta">FALAR COM ESPECIALISTA →</a>'
+        + '    <a href="https://rockencantech.com.br/#contato" id="link-especialista" class="btn-cta">FALAR COM ESPECIALISTA →</a>'
         + '    <button class="btn-secondary-cta" onclick="baixarPDF()">'
         + '      <i data-lucide="download"></i>'
         + '      BAIXAR MEU DIAGNÓSTICO'
