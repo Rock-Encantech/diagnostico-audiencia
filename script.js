@@ -577,7 +577,7 @@ function renderResultado() {
         + '  </div>'
         + '  <div class="cta-buttons">'
         + '    <a href="https://rockencantech.com.br/#contato" id="link-especialista" class="btn-cta">FALAR COM ESPECIALISTA →</a>'
-        + '    <button class="btn-secondary-cta" onclick="baixarPDF()">'
+        + '    <button class="btn-secondary-cta" onclick="baixarDiagnostico()">'
         + '      <i data-lucide="download"></i>'
         + '      BAIXAR MEU DIAGNÓSTICO'
         + '    </button>'
@@ -595,10 +595,10 @@ function renderResultado() {
 // ==============================
 
 function baixarDiagnostico() {
-    var elemento = document.querySelector('.result-container');
+    var elemento = document.getElementById('resultado-content');
 
     // Esconder botões antes de capturar
-    var botoes = elemento.querySelectorAll('.result-actions');
+    var botoes = elemento.querySelectorAll('.cta-section');
     botoes.forEach(function(btn) { btn.style.display = 'none'; });
 
     // Esconder CTA Rock se existir
