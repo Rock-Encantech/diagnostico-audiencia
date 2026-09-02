@@ -603,7 +603,7 @@ function baixarDiagnostico() {
     var ctaSection = elemento.querySelector('.cta-section');
     if (ctaSection) ctaSection.style.display = 'none';
 
-    // Forçar o elemento a mostrar tudo (sem overflow cortado)
+    // Forçar o elemento a mostrar tudo
     var alturaOriginal = elemento.style.height;
     var overflowOriginal = elemento.style.overflow;
     elemento.style.height = 'auto';
@@ -621,10 +621,30 @@ function baixarDiagnostico() {
         width: elemento.scrollWidth,
         height: elemento.scrollHeight
     }).then(function(canvas) {
-        var link = document.createElement('a');
-        link.download = 'diagnostico-audiencia.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
+        // Detectar se é mobile
+        var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        if (isMobile) {
+            // Mobile: abrir imagem em nova aba (usuário salva manualmente)
+            var imgData = canvas.toDataURL('image/png');
+            var novaAba = window.open('');
+            if (novaAba) {
+                novaAba.document.write('<html><head><title>Diagnóstico de Audiência</title><meta name="viewport" content="width=device-width, initial-scale=1"><style>body{margin:0;background:#111;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;}img{width:100%;max-width:600px;}</style></head><body><img src="' + imgData + '"/></body></html>');
+                novaAba.document.close();
+            } else {
+                // Se popup bloqueado, usar blob URL
+                canvas.toBlob(function(blob) {
+                    var url = URL.createObjectURL(blob);
+                    window.location.href = url;
+                }, 'image/png');
+            }
+        } else {
+            // Desktop: download automático
+            var link = document.createElement('a');
+            link.download = 'diagnostico-audiencia.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
 
         // Restaurar
         if (ctaSection) ctaSection.style.display = '';
