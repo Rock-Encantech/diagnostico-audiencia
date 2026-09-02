@@ -595,36 +595,45 @@ function renderResultado() {
 // ==============================
 
 function baixarDiagnostico() {
-    var elemento = document.getElementById('resultado-content');
+    var elemento = document.querySelector('.resultado-container');
+    if (!elemento) return;
 
     // Esconder botões antes de capturar
-    var botoes = elemento.querySelectorAll('.cta-section');
+    var botoes = elemento.querySelectorAll('.cta-section, .insights-rock-section, .resultado-acoes');
     botoes.forEach(function(btn) { btn.style.display = 'none'; });
 
-    // Esconder CTA Rock se existir
-    var ctaSection = elemento.querySelector('.insights-rock-section');
-    if (ctaSection) ctaSection.style.display = 'none';
+    // Forçar o elemento a mostrar tudo (sem overflow cortado)
+    var alturaOriginal = elemento.style.height;
+    var overflowOriginal = elemento.style.overflow;
+    elemento.style.height = 'auto';
+    elemento.style.overflow = 'visible';
 
     html2canvas(elemento, {
         backgroundColor: '#111111',
         scale: 2,
         useCORS: true,
-        logging: false
+        allowTaint: true,
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: elemento.scrollWidth,
+        windowHeight: elemento.scrollHeight,
+        width: elemento.scrollWidth,
+        height: elemento.scrollHeight
     }).then(function(canvas) {
-        // Restaurar botões
-        botoes.forEach(function(btn) { btn.style.display = ''; });
-        if (ctaSection) ctaSection.style.display = '';
-
-        // Baixar como PNG
         var link = document.createElement('a');
         link.download = 'diagnostico-audiencia.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
-    }).catch(function(erro) {
-        // Restaurar botões em caso de erro
+
+        // Restaurar botões e estilos
         botoes.forEach(function(btn) { btn.style.display = ''; });
-        if (ctaSection) ctaSection.style.display = '';
-        alert('Erro ao gerar imagem. Tente novamente.');
+        elemento.style.height = alturaOriginal;
+        elemento.style.overflow = overflowOriginal;
+    }).catch(function(err) {
+        console.error('Erro ao gerar imagem:', err);
+        botoes.forEach(function(btn) { btn.style.display = ''; });
+        elemento.style.height = alturaOriginal;
+        elemento.style.overflow = overflowOriginal;
     });
 }
 
