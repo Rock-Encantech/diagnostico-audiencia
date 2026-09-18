@@ -659,16 +659,16 @@ function baixarDiagnostico() {
     });
 }
 
+
 // ==============================
 // INICIAR
 // ==============================
-iniciar();
-
 function iniciar() {
     perguntaAtual = 0;
     respostaAtual = null;
     respostas = { vinculo: 0, presenca: 0 };
-    
+}
+
 // ==============================
 // LEITURA DE RESULTADO VIA URL
 // ==============================
@@ -677,11 +677,10 @@ function verificarResultadoURL() {
     var resultado = params.get('r');
 
     if (resultado) {
-        // Mapear o parâmetro para os scores corretos
         var mapa = {
             'INVISIVEL':       { vinculo: 0, presenca: 0 },
             'PICO':            { vinculo: 3, presenca: 0 },
-            'CONEXAO':         { vinculo: 0, presenca: 3 },
+            'RUIDO':           { vinculo: 0, presenca: 3 },
             'AUDIENCIA_ATIVA': { vinculo: 3, presenca: 3 }
         };
 
@@ -691,16 +690,15 @@ function verificarResultadoURL() {
             respostas.vinculo = scores.vinculo;
             respostas.presenca = scores.presenca;
             renderResultado();
-            return true; // resultado encontrado, não renderiza home
+            return true;
         }
     }
-    return false; // sem parâmetro, segue normal
+    return false;
 }
 
 // Iniciar: verifica URL primeiro, se não tiver parâmetro, mostra home
+iniciar();
 if (!verificarResultadoURL()) {
     renderHome();
 }
-
-
 
