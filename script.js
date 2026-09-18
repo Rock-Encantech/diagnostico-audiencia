@@ -34,12 +34,12 @@ var perguntas = [
     },
     {
         titulo: "Personalização",
-        pergunta: "Você consegue criar ofertas, benefícios e comunicações mais relevantes para diferentes perfis de clientes?",
-        explicacao: "Considere se todos os clientes recebem a mesma abordagem ou se existem ações adaptadas de acordo com suas necessidades e comportamentos.",
-        exemplo: "Oferecer uma promoção de uma categoria que aquele cliente costuma comprar ou uma comunicação específica para um determinado perfil.",
+        pergunta: "Você consegue identificar e engajar mais de 60% dos seus clientes?",
+        explicacao: "Considere o quanto da sua base está identificada e se você consegue utilizar informações sobre seus clientes para criar comunicações, ofertas ou benefícios mais relevantes.",
+        exemplo: "Ter informações sobre quem são seus clientes, o que compram e como se comportam, e utilizar esses dados para se relacionar de forma mais relevante com pelo menos 60% da sua base. O ideal é alcançar cerca de 90%.",
         eixo: "vinculo",
-        sim: "Você consegue adaptar experiências de acordo com diferentes perfis de clientes.",
-        nao: "Ainda existem oportunidades para criar experiências mais personalizadas.",
+        sim: "Você já consegue identificar e engajar uma parcela relevante da sua base.",
+        nao: "Ainda existem oportunidades para conhecer melhor seus clientes e aumentar o engajamento.",
         icone: "sliders-horizontal"
     },
     {
@@ -64,12 +64,12 @@ var perguntas = [
     },
     {
         titulo: "Recorrência",
-        pergunta: "Você cria motivos para que seus clientes voltem e continuem escolhendo seu negócio?",
-        explicacao: "Considere se existem iniciativas que estimulam frequência e fortalecem a relação no longo prazo.",
-        exemplo: "Programas de benefícios, vantagens exclusivas, ofertas personalizadas ou experiências que incentivam o retorno.",
+        pergunta: "Seu app consegue manter pelo menos 30% da sua base de clientes ativa todos os meses?",
+        explicacao: "Considere os clientes que acessam e utilizam o app mensalmente para consultar ofertas, aproveitar benefícios, fazer compras ou interagir com a marca.",
+        exemplo: "Ter 100 mil clientes na base e pelo menos 30 mil deles utilizando o app todos os meses. O ideal é manter cerca de 60% da base ativa mensalmente.",
         eixo: "presenca",
-        sim: "Você cria iniciativas que fortalecem a frequência e a relação com seus clientes.",
-        nao: "Ainda existem oportunidades para criar motivos que incentivem o retorno dos clientes.",
+        sim: "Seu app já consegue manter uma parcela relevante da sua base ativa mensalmente.",
+        nao: "Ainda existem oportunidades para aumentar a frequência de uso e tornar o app mais relevante para seus clientes. Ou não tenho app ainda.",
         icone: "repeat"
     }
 ];
